@@ -106,7 +106,7 @@ class Table extends React.Component {
 						{this.renderRows()}
 					</tbody>
 				</table>
-				<Modal profil={this.state.toDisplay}/>
+				<Modal profil={this.state.toDisplay} callback={() => this.displayModal({})}/>
 			</div>
 		);
 	}
