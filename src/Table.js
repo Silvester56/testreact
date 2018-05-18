@@ -10,9 +10,17 @@ class Table extends React.Component {
 		this.state = {
 			tab: [],
 			filteredTab: [],
-			toDisplay: {}
+			toDisplay: {},
+			url: "https://demo0050088.mockable.io/simple/profils"
 		};
 		getData().then(profils => {
+			this.setState({tab: profils, filteredTab: profils});
+		});
+	}
+
+	changeURL(event) {
+		this.setState({url: event.target.value});
+		getData(event.target.value).then(profils => {
 			this.setState({tab: profils, filteredTab: profils});
 		});
 	}
@@ -91,7 +99,7 @@ class Table extends React.Component {
 	render() {
 		return (
 			<div>
-				URL : <input onChange={event => this.changeURL(event)} type="text" value="https://demo0050088.mockable.io/simple/profils"/><br/>
+				URL : <input onChange={event => this.changeURL(event)} type="text" value={this.state.url}/><br/>
 				Filter : <input onChange={event => this.filter(event)} type="text"/>
 				<table>
 					<thead>
