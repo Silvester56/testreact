@@ -3,7 +3,7 @@ import {getData} from './getData';
 
 class TableBody extends React.Component {
 
-	constructor(props) {
+constructor(props) {
 		super(props);
 		this.state = {
 			tab: []
@@ -13,16 +13,20 @@ class TableBody extends React.Component {
 		});
 	}
 
-	renderRows() {
-		let str = [];
+	profilItem(profil, index){
+		return (<tr key={index} id={profil.id}>
+			<td><img src={profil.picture} alt="avatar"/></td>
+			<td>{profil.lastname}</td>
+			<td>{profil.firstname}</td>
+			<td>{profil.tabbalance}</td></tr>);
+	}
 
-		for (let i = 0; i < this.state.tab.length; i++) {
-		  	str.push(<tr id={this.state.tab[i].id}><td><img src={this.state.tab[i].picture}/></td>
-			<td>{this.state.tab[i].lastname}</td>
-			<td>{this.state.tab[i].firstname}</td>
-			<td>{this.state.tab[i].balance}</td></tr>);
-  		}
-  		return str;
+	profilList() {
+		return this.state.tab.map((profil, index) => this.profilItem(profil, index));
+	}
+
+	renderRows() {
+  		return this.profilList();
 	}
 
 	render() {
