@@ -5,22 +5,22 @@ class TableBody extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			tab: []
+		};
 		getData().then(profils => {
-			this.state = {
-				tab: profils
-			};
+			this.setState({tab: profils});
 		});
 	}
 
 	renderRows() {
 		let str = [];
 		for (let i = 0; i < this.state.tab.length; i++) {
-		  	str.push(<tr id={this.state.tab[i].id}><td><img src={this.state.tab[i]}/></td>
-			<td>{this.state.tab[i]}</td>
-			<td>{this.state.tab[i]}</td>
-			<td>{this.state.tab[i]}</td></tr>);
+		  	str.push(<tr id={this.state.tab[i].id}><td><img src={this.state.tab[i].picture}/></td>
+			<td>{this.state.tab[i].lastname}</td>
+			<td>{this.state.tab[i].firstname}</td>
+			<td>{this.state.tab[i].balance}</td></tr>);
   		}
-
   		return str;
 	}
 
