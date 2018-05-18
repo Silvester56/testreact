@@ -1,5 +1,6 @@
 import React from 'react';
 import {getData} from './getData';
+import TableSortHead from './TableSortHead';
 
 class TableBody extends React.Component {
 
@@ -37,9 +38,9 @@ constructor(props) {
 	        <thead>
 	          <tr>
 	            <th>Picture</th>
-	            <th id="lastname" onclick="sort();">Lastname</th>
-	            <th id="firstname">Firstname</th>
-	            <th id="balance">Balance</th>
+	            <TableSortHead name="lastname" />
+	            <TableSortHead name="firstname" />
+	            <TableSortHead name="balance" />
 	          </tr>
 	        </thead>
 			<tbody>
