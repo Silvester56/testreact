@@ -15,6 +15,7 @@ class TableBody extends React.Component {
 
 	renderRows() {
 		let str = [];
+
 		for (let i = 0; i < this.state.tab.length; i++) {
 		  	str.push(<tr id={this.state.tab[i].id}><td><img src={this.state.tab[i].picture}/></td>
 			<td>{this.state.tab[i].lastname}</td>

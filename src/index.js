@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import TableBody from './TableBody';
 import './index.css';
 
-// 1 component pour récupérer les données
-// 1 pour la table
-
 class App extends React.Component {
   render() {
     return (
