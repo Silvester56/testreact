@@ -61,9 +61,6 @@ constructor(props) {
 		return this.state.oldTab.map((profil, index) => this.profilItem(profil, index));
 	}
 
-	renderRows() {
-  		return this.profilList();
-	}
 
 	render() {
 		return (
@@ -79,7 +76,7 @@ constructor(props) {
 	          </tr>
 	        </thead>
 			<tbody>
-				{this.renderRows()}
+				{this.profilList()}
 			</tbody>
 	      </table>
 
