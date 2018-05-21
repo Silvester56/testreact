@@ -9,7 +9,7 @@ class TableSortHead extends React.Component{
 	}
 
 	checkSortStatus(){
-		this.setState({sortStatus: true});
+		this.setState({sortStatus: !this.state.sortStatus});
 		this.props.callback(this.state.sortStatus);
 	}
 

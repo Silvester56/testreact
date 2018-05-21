@@ -24,7 +24,7 @@ constructor(props) {
 	}
 
 	sort(name, sortStatus) {
-		let oldTab = this.state.oldTab.slice();
+		let oldTab = this.state.oldTab;
 		let sortedTab = [];
 		let maxmin = oldTab[0][name];
 		let index = 0;
