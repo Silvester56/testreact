@@ -57,6 +57,17 @@ constructor(props) {
 		this.setState({oldTab: sortedTab});
 	}
 
+	filter(str){
+		const filteredTab = [];
+
+		for (let i = 0; i < this.state.tab.length; i++) {
+			if (this.state.tab[i].lastname.toUpperCase().includes(str.target.value.toUpperCase()) || this.state.tab[i].firstname.toUpperCase().includes(str.target.value.toUpperCase())) {
+				filteredTab.push(this.state.tab[i]);
+			}
+		}
+		this.setState({oldTab : filteredTab});
+	}
+
 	profilList() {
 		return this.state.oldTab.map((profil, index) => this.profilItem(profil, index));
 	}
@@ -65,22 +76,22 @@ constructor(props) {
 	render() {
 		return (
 		  //URL : <input id="url" type="text" value="https://demo0050088.mockable.io/simple/profils"><br>
-		  //Filter : <input id="filter" type="text">
-		  <table>
-	        <thead>
-	          <tr>
-	            <th>Picture</th>
-	            <TableSortHead name="lastname" callback={(sortStatus) => this.sort("lastname", sortStatus)}/>
-	            <TableSortHead name="firstname" callback={(sortStatus) => this.sort("firstname", sortStatus)}/>
-	            <TableSortHead name="balance" callback={(sortStatus) => this.sort("balance", sortStatus)} />
-	          </tr>
-	        </thead>
-			<tbody>
-				{this.profilList()}
-			</tbody>
-	      </table>
-
-		  //<div id="modal"></div>
+		  	<div>
+		  		Filter : <input onChange={event => this.filter(event)} type="text"/>
+			  <table>
+		        <thead>
+		          <tr>
+		            <th>Picture</th>
+		            <TableSortHead name="lastname" callback={(sortStatus) => this.sort("lastname", sortStatus)}/>
+		            <TableSortHead name="firstname" callback={(sortStatus) => this.sort("firstname", sortStatus)}/>
+		            <TableSortHead name="balance" callback={(sortStatus) => this.sort("balance", sortStatus)} />
+		          </tr>
+		        </thead>
+				<tbody>
+					{this.profilList()}
+				</tbody>
+		      </table>
+			</div>
 		);
 	}
 }
