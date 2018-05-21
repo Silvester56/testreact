@@ -1,6 +1,7 @@
 import React from 'react';
 import {getData} from './getData';
 import TableSortHead from './TableSortHead';
+import Modal from './Modal';
 
 class TableBody extends React.Component {
 
@@ -91,6 +92,7 @@ constructor(props) {
 					{this.profilList()}
 				</tbody>
 		      </table>
+		      <Modal />
 			</div>
 		);
 	}
