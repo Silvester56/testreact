@@ -2,6 +2,7 @@ import React from 'react';
 import {getData} from './getData';
 import TableSortHead from './TableSortHead';
 import Modal from './Modal';
+import ProfilList from './ProfilList';
 
 class TableBody extends React.Component {
 
@@ -9,19 +10,12 @@ constructor(props) {
 		super(props);
 		this.state = {
 			tab: [],
-			oldTab: []
+			oldTab: [],
+			mdDisplay:{}
 		};
 		getData().then(profils => {
 			this.setState({tab: profils, oldTab: profils});
 		});
-	}
-
-	profilItem(profil, index){
-		return (<tr key={index} id={profil.id}>
-			<td><img src={profil.picture} alt="avatar"/></td>
-			<td>{profil.lastname}</td>
-			<td>{profil.firstname}</td>
-			<td>{profil.balance}</td></tr>);
 	}
 
 	sort(name, sortStatus) {
@@ -69,8 +63,13 @@ constructor(props) {
 		this.setState({oldTab : filteredTab});
 	}
 
-	profilList() {
-		return this.state.oldTab.map((profil, index) => this.profilItem(profil, index));
+	displayModal(profil){
+		console.log(profil);
+		this.setState({mdDisplay: profil});
+	}
+
+	closeModal(){
+		this.setState({mdDisplay: ''});
 	}
 
 
@@ -89,10 +88,13 @@ constructor(props) {
 		          </tr>
 		        </thead>
 				<tbody>
-					{this.profilList()}
+					
+					<ProfilList profils={this.state.oldTab} callback={(profil) => this.displayModal(profil)}/>
 				</tbody>
 		      </table>
-		      <Modal />
+		      <aside>
+		      	<Modal profil={this.state.mdDisplay} closeModal={()=> this.closeModal()}/>
+		      </aside>
 			</div>
 		);
 	}

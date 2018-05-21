@@ -92,7 +92,16 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 50%;
-    margin-top: 10%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    float: left;
+}
+
+aside{
+  margin-top: 30px;
+  padding-left: 15px;
+  width: 50%;
+  float: right;
 }
 
 td, th {

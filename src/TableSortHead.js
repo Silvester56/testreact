@@ -15,7 +15,7 @@ class TableSortHead extends React.Component{
 
 	render(){
 		return (
-			<th id="lastname" onClick={() => this.checkSortStatus()}>{this.props.name}</th>
+			<th onClick={() => this.checkSortStatus()}>{this.props.name}</th>
 		);
 	}
 }

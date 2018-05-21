@@ -6,7 +6,7 @@ class Modal extends React.Component {
 		if (this.props.profil.id) {
 			return (
 				<div>
-				<span onClick={() => this.props.callback()}>Fermer [X]</span><br/>
+				<span onClick={() => this.props.closeModal()}>Fermer [X]</span><br/>
 				Nom: {this.props.profil.lastname}<br/>
 				Prenom: {this.props.profil.firstname}<br/>
 				Balance	{this.props.profil.balance}<br/>
