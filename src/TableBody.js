@@ -53,10 +53,16 @@ constructor(props) {
 	}
 
 	filter(str){
-		const filteredTab = [];
+		let filteredTab = [];
+		let profilsLastname = [];
+		let profilsFirstname = [];
 
 		for (let i = 0; i < this.state.tab.length; i++) {
-			if (this.state.tab[i].lastname.toUpperCase().includes(str.target.value.toUpperCase()) || this.state.tab[i].firstname.toUpperCase().includes(str.target.value.toUpperCase())) {
+			profilsLastname = this.state.tab[i].lastname.toUpperCase();
+			profilsFirstname = this.state.tab[i].firstname.toUpperCase();
+			let strInput = str.target.value.toUpperCase();
+
+			if (profilsLastname.includes(strInput) || profilsFirstname.includes(strInput)) {
 				filteredTab.push(this.state.tab[i]);
 			}
 		}
