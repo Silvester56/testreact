@@ -11,6 +11,7 @@ class Table extends React.Component {
 			tab: [],
 			filteredTab: [],
 			toDisplay: {},
+			sortedCol: "",
 			url: "https://demo0050088.mockable.io/simple/profils"
 		};
 		getData().then(profils => {
@@ -36,47 +37,64 @@ class Table extends React.Component {
 		this.setState({filteredTab: newTab});
 	}
 
-	sort(name, up) {
+	sortNum(name) {
 		let oldTab = this.state.filteredTab.slice();
 		let newTab = [];
 		let maxmin = oldTab[0][name];
 		let index = 0;
+		let sign = 1;
 
-		console.log(name, up);
-
+		if (this.state.sortedCol === name) {
+			sign = -1;
+		} else {
+			this.setState({sortedCol: name});
+		}
 		while(oldTab.length > 0) {
 			maxmin = oldTab[0][name];
 			for (let i = 0; i < oldTab.length; i++) {
-				if (name.localeCompare("balance") == 0) {
-					if (up) {
-						if (parseFloat(oldTab[i][name]) >= parseFloat(maxmin)) {
-							maxmin = oldTab[i][name];
-							index = i;
-						}
-					} else {
-						if (parseFloat(oldTab[i][name]) <= parseFloat(maxmin)) {
-							maxmin = oldTab[i][name];
-							index = i;
-						}
-					}
-				} else {
-					if (up) {
-						if (maxmin.localeCompare(oldTab[i][name]) >= 0) {
-							maxmin = oldTab[i][name]; 
-							index = i;
-						}
-					} else {
-						if (maxmin.localeCompare(oldTab[i][name]) <= 0) {
-							maxmin = oldTab[i][name];
-							index = i;
-						}
-					}
+				if ((parseFloat(oldTab[i][name]) - parseFloat(maxmin)) * sign >= 0) {
+					maxmin = oldTab[i][name];
+					index = i;
 				}
 			}
 			newTab.push(oldTab[index]);
 			oldTab.splice(index, 1);
 		}
 		this.setState({filteredTab: newTab});
+	}
+
+	sortAlpha(name) {
+		let oldTab = this.state.filteredTab.slice();
+		let newTab = [];
+		let maxmin = oldTab[0][name];
+		let index = 0;
+		let sign = 1;
+
+		if (this.state.sortedCol === name) {
+			sign = -1;
+		} else {
+			this.setState({sortedCol: name});
+		}
+		while(oldTab.length > 0) {
+			maxmin = oldTab[0][name];
+			for (let i = 0; i < oldTab.length; i++) {
+				if (maxmin.localeCompare(oldTab[i][name]) * sign >= 0) {
+					maxmin = oldTab[i][name]; 
+					index = i;
+				}
+			}
+			newTab.push(oldTab[index]);
+			oldTab.splice(index, 1);
+		}
+		this.setState({filteredTab: newTab});
+	}
+
+	sort(name) {
+		if (this.state.sortedCol === "balance") {
+			this.sortNum(name);
+		} else {
+			this.sortAlpha(name);
+		}
 	}
 
 	displayModal(obj) {
@@ -105,9 +123,9 @@ class Table extends React.Component {
 					<thead>
 						<tr>
 							<th>Picture</th>
-							<TableH name="Lastname" callback={(up) => this.sort("lastname", up)}/>
-							<TableH name="Firstname" callback={(up) => this.sort("firstname", up)}/>
-							<TableH name="Balance" callback={(up) => this.sort("balance", up)}/>
+							<TableH name="Lastname" callback={() => this.sort("lastname")}/>
+							<TableH name="Firstname" callback={() => this.sort("firstname")}/>
+							<TableH name="Balance" callback={() => this.sort("balance")}/>
 						</tr>
 					</thead>
 					<tbody>

@@ -11,7 +11,7 @@ class TableH extends React.Component {
 
 	sort() {
 		this.state.sortred = !this.state.sortred;
-		this.props.callback(this.state.sortred);
+		this.props.callback();
 	}
 
 	render() {
