@@ -28,9 +28,10 @@ class Table extends React.Component {
 
 	filter(event) {
 		let newTab = [];
+		let target = event.target.value.toUpperCase();
 
 		for (let i = 0; i < this.state.tab.length; i++) {
-			if (this.state.tab[i].lastname.toUpperCase().includes(event.target.value.toUpperCase()) || this.state.tab[i].firstname.toUpperCase().includes(event.target.value.toUpperCase())) {
+			if (this.state.tab[i].lastname.toUpperCase().includes(target) || this.state.tab[i].firstname.toUpperCase().includes(target)) {
 				newTab.push(this.state.tab[i]);
 			}
 		}
@@ -39,54 +40,24 @@ class Table extends React.Component {
 
 	sortNum(name) {
 		let oldTab = this.state.filteredTab.slice();
-		let newTab = [];
-		let maxmin = oldTab[0][name];
-		let index = 0;
-		let sign = 1;
 
 		if (this.state.sortedCol === name) {
-			sign = -1;
+			oldTab.sort((a, b) => { return b[name] - a[name] });
 		} else {
-			this.setState({sortedCol: name});
+			oldTab.sort((a, b) => { return a[name] - b[name] });
 		}
-		while(oldTab.length > 0) {
-			maxmin = oldTab[0][name];
-			for (let i = 0; i < oldTab.length; i++) {
-				if ((parseFloat(oldTab[i][name]) - parseFloat(maxmin)) * sign >= 0) {
-					maxmin = oldTab[i][name];
-					index = i;
-				}
-			}
-			newTab.push(oldTab[index]);
-			oldTab.splice(index, 1);
-		}
-		this.setState({filteredTab: newTab});
+		this.setState({filteredTab: oldTab});
 	}
 
 	sortAlpha(name) {
 		let oldTab = this.state.filteredTab.slice();
-		let newTab = [];
-		let maxmin = oldTab[0][name];
-		let index = 0;
-		let sign = 1;
 
 		if (this.state.sortedCol === name) {
-			sign = -1;
+			oldTab.sort((a, b) => { return b[name].localeCompare(a[name]) });
 		} else {
-			this.setState({sortedCol: name});
+			oldTab.sort((a, b) => { return a[name].localeCompare(b[name]) });
 		}
-		while(oldTab.length > 0) {
-			maxmin = oldTab[0][name];
-			for (let i = 0; i < oldTab.length; i++) {
-				if (maxmin.localeCompare(oldTab[i][name]) * sign >= 0) {
-					maxmin = oldTab[i][name]; 
-					index = i;
-				}
-			}
-			newTab.push(oldTab[index]);
-			oldTab.splice(index, 1);
-		}
-		this.setState({filteredTab: newTab});
+		this.setState({filteredTab: oldTab});
 	}
 
 	sort(name) {
@@ -95,6 +66,7 @@ class Table extends React.Component {
 		} else {
 			this.sortAlpha(name);
 		}
+		this.setState({sortedCol: this.state.sortedCol === name ? "" : name});
 	}
 
 	displayModal(obj) {
