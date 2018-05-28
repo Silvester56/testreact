@@ -77,7 +77,7 @@ class Table extends React.Component {
 		let str = [];
 
 		for (let i = 0; i < this.state.filteredTab.length; i++) {
-		  	str.push(<tr onClick={() => this.displayModal(this.state.filteredTab[i])}><td><img src={this.state.filteredTab[i].picture}/></td>
+		  	str.push(<tr class="rows" onClick={() => this.displayModal(this.state.filteredTab[i])}><td><img src={this.state.filteredTab[i].picture}/></td>
 			<td>{this.state.filteredTab[i].lastname}</td>
 			<td>{this.state.filteredTab[i].firstname}</td>
 			<td>{this.state.filteredTab[i].balance}</td></tr>);
@@ -93,7 +93,7 @@ class Table extends React.Component {
 				Filter : <input onChange={event => this.filter(event)} type="text"/>
 				<table>
 					<thead>
-						<tr>
+						<tr class="rows">
 							<th>Picture</th>
 							<TableH name="Lastname" callback={() => this.sort("lastname")}/>
 							<TableH name="Firstname" callback={() => this.sort("firstname")}/>

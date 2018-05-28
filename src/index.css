@@ -100,11 +100,11 @@ td, th {
     padding: 8px;
 }
 
-tr:nth-child(even) {
+tr.rows:nth-child(even) {
     background-color: #dddddd;
 }
 
-input, select, button {
+input, select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -128,4 +128,33 @@ input[type=submit], button[type=submit] {
 input[type=submit]:hover, button[type=submit]:hover {
     background-color: #45a049;
     width: 50%;
+}
+
+.modal {
+	display: block;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.modal-button {
+	float: right;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
