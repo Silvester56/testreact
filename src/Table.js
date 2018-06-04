@@ -15,7 +15,9 @@ class Table extends React.Component {
 			url: "https://demo0050088.mockable.io/simple/profils"
 		};
 		getData().then(profils => {
-			this.setState({tab: profils, filteredTab: profils});
+			if (profils) {
+				this.setState({tab: profils, filteredTab: profils});
+			}
 		});
 	}
 
@@ -61,7 +63,7 @@ class Table extends React.Component {
 	}
 
 	sort(name) {
-		if (this.state.sortedCol === "balance") {
+		if (name === "balance") {
 			this.sortNum(name);
 		} else {
 			this.sortAlpha(name);
@@ -69,21 +71,15 @@ class Table extends React.Component {
 		this.setState({sortedCol: this.state.sortedCol === name ? "" : name});
 	}
 
-	displayModal(obj) {
-		this.setState({toDisplay: obj});
-	}
-
 	renderRows() {
-		let str = [];
-
-		for (let i = 0; i < this.state.filteredTab.length; i++) {
-		  	str.push(<tr class="rows" onClick={() => this.displayModal(this.state.filteredTab[i])}><td><img src={this.state.filteredTab[i].picture}/></td>
-			<td>{this.state.filteredTab[i].lastname}</td>
-			<td>{this.state.filteredTab[i].firstname}</td>
-			<td>{this.state.filteredTab[i].balance}</td></tr>);
-  		}
-
-  		return str;
+  		return this.state.filteredTab.map((row) =>
+			<tr key={row.id} className="rows" onClick={() => this.setState({toDisplay: row})}>
+				<td><img src={row.picture}/></td>
+				<td>{row.lastname}</td>
+				<td>{row.firstname}</td>
+				<td>{row.balance}</td>
+			</tr>
+		);
 	}
 
 	render() {
@@ -93,18 +89,18 @@ class Table extends React.Component {
 				Filter : <input onChange={event => this.filter(event)} type="text"/>
 				<table>
 					<thead>
-						<tr class="rows">
+						<tr className="rows">
 							<th>Picture</th>
-							<TableH name="Lastname" callback={() => this.sort("lastname")}/>
-							<TableH name="Firstname" callback={() => this.sort("firstname")}/>
-							<TableH name="Balance" callback={() => this.sort("balance")}/>
+							<TableH callback={() => this.sort("lastname")}>Lastname</TableH>
+							<TableH callback={() => this.sort("firstname")}>Firstname</TableH>
+							<TableH callback={() => this.sort("balance")}>Balance</TableH>
 						</tr>
 					</thead>
 					<tbody>
 						{this.renderRows()}
 					</tbody>
 				</table>
-				<Modal profil={this.state.toDisplay} callback={() => this.displayModal({})}/>
+				<Modal profil={this.state.toDisplay} callback={() => this.setState({toDisplay: {}})}/>
 			</div>
 		);
 	}

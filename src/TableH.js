@@ -10,13 +10,13 @@ class TableH extends React.Component {
 	}
 
 	sort() {
-		this.state.sortred = !this.state.sortred;
+		this.setState({sortred: !this.state.sortred});
 		this.props.callback();
 	}
 
 	render() {
 		return (
-		  <th onClick={() => this.sort()}>{this.props.name}</th>
+		  <th onClick={() => this.sort()}>{this.props.children}</th>
 		);
 	}
 }
